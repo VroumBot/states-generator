@@ -2,12 +2,20 @@
 
 ### Quick start
 
-Run this locally to quickly generate custom starting States to test your simulations and strategy on various
+Run this locally to quickly generate custom starting States to **test your simulations and strategy** on various
 environments.
 
 It should look like this:
 
 ![Screenshot of the generator](misc/screenshot.png)
+
+### Output
+
+When you're done, click on Export to JSON. This will download a `state.stat.json file`. Open it and check everything is
+alright (and edit some values if needed). See example [here](misc/state.stat.json).
+
+You can now remove the `.json`. You're left with a `.stat` file that you can use directly in your timeline generation
+program!
 
 ### More details
 
