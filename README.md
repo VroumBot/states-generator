@@ -5,6 +5,10 @@
 Run this locally to quickly generate custom starting States to test your simulations and strategy on various
 environments.
 
+It should look like this:
+
+![Screenshot of the generator](misc/screenshot.png)
+
 ### More details
 
 You can customize some settings, for ex. the bot radius or the canvas size. Other customizations are on the way.
