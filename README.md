@@ -2,7 +2,8 @@
 
 ### Quick start
 
-Run this locally to quickly generate custom starting States to **test your simulations and strategy** on various
+Go to [`vroumbot.github.io/states-generator`](https://vroumbot.github.io/states-generator/) or run this locally to
+quickly generate custom starting States to **test your simulations and strategy** on various
 environments.
 
 It should look like this:
