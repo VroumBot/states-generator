@@ -1,15 +1,15 @@
 class Circle {
-  constructor(pos, diameter, color) {
-    this.pos = pos;
-    this.diameter = diameter;
-    this.color = color;
-  }
+    constructor(pos, diameter, color) {
+        this.pos = pos;
+        this.diameter = diameter;
+        this.color = color;
+    }
 
-  display() {
-    stroke(0);
-    fill(this.color);
-    ellipse(this.pos.x, this.pos.y, this.diameter, this.diameter);
-  }
+    display() {
+        stroke(0);
+        fill(this.color);
+        ellipse(this.pos.x, this.pos.y, this.diameter, this.diameter);
+    }
 }
 
 function setup() {
