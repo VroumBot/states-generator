@@ -149,7 +149,7 @@ function updateCanvasSize() {
 
 function exportStateToJSON() {
     let exportData = {"particles": [], "robots": [], time:0.0,
-    worldEnd: {x: canvasSize.x - 50,y: canvasSize.y - 50},
+    worldEnd: {x: canvasSize.x * window.devicePixelRatio - 50,y: canvasSize.y * window.devicePixelRatio - 50},
     worldOrigin: {x: -50,y: -50}
     };
 
@@ -159,8 +159,8 @@ function exportStateToJSON() {
           explosionTimes: [],
           id: i,
           position: {
-            x: particles[i].pos.x,
-            y: particles[i].pos.y
+            x: round(particles[i].pos.x * window.devicePixelRatio, 1) - 50,
+            y: round(particles[i].pos.y * window.devicePixelRatio, 1) - 50
           },
           radius: particles[i].diameter
         };
@@ -175,8 +175,8 @@ function exportStateToJSON() {
           id: i,
           leftSpeed: 0.0,
           position: {
-            x: round(vroumBots[i].pos.x, 1),
-            y: round(vroumBots[i].pos.y, 1)
+            x: round(vroumBots[i].pos.x * window.devicePixelRatio, 1) - 50,
+            y: round(vroumBots[i].pos.y * window.devicePixelRatio, 1) - 50
           },
           radius: vroumBots[i].diameter,
           rightSpeed: 0.0,
