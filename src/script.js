@@ -60,6 +60,14 @@ function setup() {
     yInput.size(50);
     yInput.input(updateCanvasSize);
 
+    // Create a button to toggle between bots and particles
+    toggleCircleTypeButton = createButton('Toggle bots/particles');
+    toggleCircleTypeButton.value = RED.name;
+    toggleCircleTypeButton.position(200, canvasSize.y + 30);
+    toggleCircleTypeButton.mousePressed(toggleBotParticles);
+    toggleCircleTypeButton.style('font-size', '30px');
+    toggleBotParticles();
+
     updateCanvasSize()
 
     vroumBots = [];
@@ -80,13 +88,18 @@ function draw() {
 function mousePressed() {
     if (mouseX > canvasSize.x || mouseY > canvasSize.y) { return; }
 
-    // Choose a random color for each circle
-    if (mouseButton == LEFT) {
-        circleColor = color(74, 179, 183);
-        vroumBots.push(new Circle(createVector(mouseX, mouseY), diameterInput.value(), circleColor));
+    if (mouseButton == LEFT) {  // FIXME: ugly, handle this differently
+        if (toggleCircleTypeButton.value == BLUE.name) {
+            vroumBots.push(new Circle(createVector(mouseX, mouseY), diameterInput.value(), BLUE.val));
+        } else {
+            particles.push(new Circle(createVector(mouseX, mouseY), 50, RED.val));
+        }
     } else if (mouseButton == CENTER) {
-        circleColor = color(243, 98, 90);
-        particles.push(new Circle(createVector(mouseX, mouseY), 50, circleColor));
+        if (toggleCircleTypeButton.value == BLUE.name) {
+            particles.push(new Circle(createVector(mouseX, mouseY), 50, RED.val));
+        } else {
+            vroumBots.push(new Circle(createVector(mouseX, mouseY), diameterInput.value(), BLUE.val));
+        }
     } else {
         return;
     }
@@ -162,4 +175,14 @@ function exportStateToJSON() {
 
     // Save the JSON data to a file
     saveJSON(exportData, 'state.stat');
+}
+
+function toggleBotParticles() {
+    if (toggleCircleTypeButton.value === RED.name) {
+        toggleCircleTypeButton.value = BLUE.name;
+        toggleCircleTypeButton.style('background-color', BLUE.val);
+    } else {
+        toggleCircleTypeButton.value = RED.name;
+        toggleCircleTypeButton.style('background-color', RED.val);
+    }
 }
