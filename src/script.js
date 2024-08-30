@@ -12,7 +12,18 @@ class Circle {
     }
 }
 
+class Color {
+    constructor(name, val) {
+        this.name = name;
+        this.val = val;
+    }
+}
+
 function setup() {
+
+    BLUE = new Color("BLUE", color(74,179,183));
+    RED = new Color("RED", color(243,98,90));
+
     // Create a canvas of 700 by 700 pixels
     canvasSize = createVector(700, 700);
     createCanvas(canvasSize.x, canvasSize.y);
@@ -87,9 +98,9 @@ function clearCanvas() {
     // Display color meaning
     textSize(20);
     noStroke();
-    fill(74,179,183);
+    fill(BLUE.val);
     text("VroumBots", 10, 25);
-    fill(243,98,90);
+    fill(RED.val);
     text("Particles", 10, 45);
 
     // Display credits
