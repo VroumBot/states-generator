@@ -20,14 +20,17 @@ class Color {
 }
 
 function setup() {
-
-    BLUE = new Color("BLUE", color(74,179,183));
+    LBLUE = new Color("LIGHT_BLUE", color(74,179,183));
+    BLUE = new Color("BLUE", color(45, 112, 138))
     RED = new Color("RED", color(243,98,90));
     GREY = new Color("LIGHT_GREY", color(230));
 
     // Create a canvas of 700 by 700 pixels
     canvasSize = createVector(700, 700);
+    // Adapt to screen DPR
+    canvasSize.div(window.devicePixelRatio);
     createCanvas(canvasSize.x, canvasSize.y);
+    pixelDensity(1);
 
     // Set the background color to white
     background(GREY.val);
@@ -41,32 +44,39 @@ function setup() {
 
     // Create a button to clear the canvas
     clearButton = createButton('Clear canvas');
-    clearButton.position(10, canvasSize.y + 80);
+    clearButton.position(canvasSize.x + 50, 80);
+    clearButton.style('font-size', '30px');
+    clearButton.style('width', '300px');
+    clearButton.style('color', RED.val);
     clearButton.mousePressed(clearCircles);
 
     // Create a button to export to JSON
     changeBgButton = createButton('Export to JSON');
-    changeBgButton.position(10, canvasSize.y + 110);
+    changeBgButton.position(canvasSize.x + 50, 130);
+    changeBgButton.style('font-size', '30px')
+    changeBgButton.style('width', '300px');
+    changeBgButton.style('color', BLUE.val);
     changeBgButton.mousePressed(exportStateToJSON);
 
     // Create input fields for the canvas size
     paragraph = createP('Canvas size (width, height):');
-    paragraph.position(10, canvasSize.y + 160);
-    xInput = createInput('700', "number");
-    xInput.position(10, canvasSize.y + 200);
+    paragraph.position(10, canvasSize.y + 60);
+    xInput = createInput(700, "number");
+    xInput.position(10, canvasSize.y + 100);
     xInput.size(50);
     xInput.input(updateCanvasSize);
-    yInput = createInput('700', "number");
-    yInput.position(70, canvasSize.y + 200);
+    yInput = createInput(700, "number");
+    yInput.position(70, canvasSize.y + 100);
     yInput.size(50);
     yInput.input(updateCanvasSize);
 
     // Create a button to toggle between bots and particles
     toggleCircleTypeButton = createButton('Toggle bots/particles');
     toggleCircleTypeButton.value = RED.name;
-    toggleCircleTypeButton.position(200, canvasSize.y + 30);
+    toggleCircleTypeButton.position(canvasSize.x + 50, 30);
     toggleCircleTypeButton.mousePressed(toggleBotParticles);
     toggleCircleTypeButton.style('font-size', '30px');
+    toggleCircleTypeButton.style('width', '300px');
     toggleCircleTypeButton.style('color', GREY.val);
     toggleBotParticles();
 
@@ -91,16 +101,16 @@ function mousePressed() {
     if (mouseX > canvasSize.x || mouseY > canvasSize.y) { return; }
 
     if (mouseButton == LEFT) {  // FIXME: ugly, handle this differently
-        if (toggleCircleTypeButton.value == BLUE.name) {
-            vroumBots.push(new Circle(createVector(mouseX, mouseY), diameterInput.value(), BLUE.val));
+        if (toggleCircleTypeButton.value == LBLUE.name) {
+            vroumBots.push(new Circle(createVector(mouseX, mouseY), diameterInput.value(), LBLUE.val));
         } else {
             particles.push(new Circle(createVector(mouseX, mouseY), 50, RED.val));
         }
     } else if (mouseButton == CENTER) {
-        if (toggleCircleTypeButton.value == BLUE.name) {
+        if (toggleCircleTypeButton.value == LBLUE.name) {
             particles.push(new Circle(createVector(mouseX, mouseY), 50, RED.val));
         } else {
-            vroumBots.push(new Circle(createVector(mouseX, mouseY), diameterInput.value(), BLUE.val));
+            vroumBots.push(new Circle(createVector(mouseX, mouseY), diameterInput.value(), LBLUE.val));
         }
     } else {
         return;
@@ -113,7 +123,7 @@ function clearCanvas() {
     // Display color meaning
     textSize(20);
     noStroke();
-    fill(BLUE.val);
+    fill(LBLUE.val);
     text("VroumBots", 10, 25);
     fill(RED.val);
     text("Particles", 10, 45);
@@ -130,8 +140,8 @@ function clearCircles() {
 }
 
 function updateCanvasSize() {
-    canvasSize.x = int(xInput.value());
-    canvasSize.y = int(yInput.value());
+    canvasSize.x = int(xInput.value()) / window.devicePixelRatio;
+    canvasSize.y = int(yInput.value()) / window.devicePixelRatio;
 
     resizeCanvas(canvasSize.x, canvasSize.y);
     clearCanvas();
@@ -181,8 +191,8 @@ function exportStateToJSON() {
 
 function toggleBotParticles() {
     if (toggleCircleTypeButton.value === RED.name) {
-        toggleCircleTypeButton.value = BLUE.name;
-        toggleCircleTypeButton.style('background-color', BLUE.val);
+        toggleCircleTypeButton.value = LBLUE.name;
+        toggleCircleTypeButton.style('background-color', LBLUE.val);
     } else {
         toggleCircleTypeButton.value = RED.name;
         toggleCircleTypeButton.style('background-color', RED.val);
