@@ -23,13 +23,14 @@ function setup() {
 
     BLUE = new Color("BLUE", color(74,179,183));
     RED = new Color("RED", color(243,98,90));
+    GREY = new Color("LIGHT_GREY", color(230));
 
     // Create a canvas of 700 by 700 pixels
     canvasSize = createVector(700, 700);
     createCanvas(canvasSize.x, canvasSize.y);
 
     // Set the background color to white
-    background(220);
+    background(GREY.val);
 
     // Create a slider to control the circle diameter
     radiusParagraph = createP('Bot radius:');
@@ -66,6 +67,7 @@ function setup() {
     toggleCircleTypeButton.position(200, canvasSize.y + 30);
     toggleCircleTypeButton.mousePressed(toggleBotParticles);
     toggleCircleTypeButton.style('font-size', '30px');
+    toggleCircleTypeButton.style('color', GREY.val);
     toggleBotParticles();
 
     updateCanvasSize()
@@ -106,7 +108,7 @@ function mousePressed() {
 }
 
 function clearCanvas() {
-    background(220);
+    background(GREY.val);
 
     // Display color meaning
     textSize(20);
